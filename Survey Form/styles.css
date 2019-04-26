@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+body {
+  background-color: #52beb0;
+}
+#title {
+  margin-top: 30px;
+  font-family: "Raleway", Helvetica, sans-serif;
+  font-weight: 600;
+  color: white;
+  font-size: 40px;
+}
+
+#form-outer {
+  border-radius: 10px;
+  width: 75%;
+  margin: 30px auto;
+  background-color: white;
+  padding: 20px 10px 10px;
+  -webkit-box-shadow: -1px 8px 61px -3px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: -1px 8px 61px -3px rgba(0, 0, 0, 0.7);
+  box-shadow: -1px 8px 61px -3px rgba(0, 0, 0, 0.7);
+}
+#description {
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: 500;
+}
+.row {
+  display: flex;
+  margin-top: 20px;
+}
+.labels {
+  display: inline-block;
+  width: 40%;
+  padding: 4px;
+  text-align: end;
+  margin-left: 65px;
+  padding: 5px;
+}
+.fields {
+  display: inline-block;
+  width: 40%;
+  padding: 4px;
+  text-align: left;
+  padding: 5px;
+  margin: 0 20px;
+}
+.input-field {
+  border: 1px solid #c0c0c0;
+  padding: 5px;
+  border-radius: 3px;
+  width: 60%;
+  height: 20px;
+  text-align: start;
+}
+.dropdown {
+  width: 40%;
+  height: 35px;
+  text-align: start;
+  border: 1px solid #c0c0c0;
+  border-radius: 3px;
+}
+.radio,
+.checkbox {
+  position: relative;
+  display: block;
+  text-align: start;
+}
+.userRatings {
+  margin-right: 5px;
+}
+.area-field {
+  height: 60px;
+  resize: vertical;
+  width: 260px;
+  text-align: start;
+  padding: 1px;
+  border: 1px solid #c0c0c0;
+  border-radius: 3px;
+}
+
+.btn {
+  width: 90px;
+  height: 40px;
+  color: white;
+  background-color: #59ace0;
+  border: 1px solid;
+  border-radius: 4px;
+  margin: 30px 0;
+}
+.btn:hover {
+  color: #59ace0;
+  background-color: white;
+  transition: 0.5s;
+}
+
+@media (max-width: 850px) {
+  #form-outer {
+    border-radius: 10px;
+    width: 75%;
+    margin: 30px auto;
+    padding: 10px 5px 5px;
+  }
+
+  .input-field {
+    width: 90%;
+  }
+
+  .dropdown {
+    width: 80%;
+  }
+
+  .area-field {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  * {
+    font-size: 15px;
+  }
+  .row {
+    flex-direction: column;
+  }
+  .labels {
+    align-self: center;
+    text-align: start;
+    width: 80%;
+    margin: 0;
+  }
+  .fields {
+    align-self: center;
+    width: 80%;
+  }
+}
