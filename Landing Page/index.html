@@ -6,6 +6,93 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Landing Page</title>
     <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat|Source+Sans+Pro"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
   </head>
-  <body></body>
+  <body>
+    <div id="main-container">
+      <header id="header">
+        <div id="logo" class="logo">
+          <img
+            id="header-img"
+            src="https://s3.amazonaws.com/freecodecamp/original_trombones.png"
+            alt="LOGO"
+          />
+        </div>
+        <nav id="nav-bar">
+          <ul class="nav-items">
+            <li><a href="#features" class="nav-link">Features</a></li>
+            <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+            <li><a href="#pricing" class="nav-link">Pricing</a></li>
+          </ul>
+        </nav>
+      </header>
+      <section id="hero">
+        <h2>Best Items You Ever Seen</h2>
+        <form id="form" action="https://www.freecodecamp.com/email-submit">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder=" Enter Your Email Adress"
+          />
+          <input type="submit" id="submit" value="GET STARTED" />
+        </form>
+      </section>
+      <main class="container">
+        <section id="features">
+          <div class="grid_item">
+            <div class="icon">
+              <i class="fa fa-3x fa-fire"></i>
+            </div>
+            <div class="desc">
+              <h2>Premium Materials</h2>
+              <p style="margin-top:10px;">
+                Our trombones use the shiniest brass which is sourced locally.
+                This will increase the longevity of your purchase.
+              </p>
+            </div>
+          </div>
+          <div class="grid_item">
+            <div class="icon">
+              <i class="fas fa-3x fa-shipping-fast"></i>
+            </div>
+            <div class="desc">
+              <h2>Fast Shipping</h2>
+              <p style="margin-top:10px;">
+                We make sure you recieve your trombone as soon as we have
+                finished making it. We also provide free returns if you are not
+                satisfied.
+              </p>
+            </div>
+          </div>
+          <div class="grid_item">
+            <div class="icon">
+              <i class="fas fa-3x fa-battery-full"></i>
+            </div>
+            <div class="desc">
+              <h2>Quality Assurance</h2>
+              <p style="margin-top:10px;">
+                For every purchase you make, we will ensure there are no damages
+                or faults and we will check and test the pitch of your
+                instrument.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section id="how-it-works"></section>
+        <section id="pricing"></section>
+      </main>
+      <footer></footer>
+    </div>
+  </body>
 </html>
