@@ -58,7 +58,7 @@ a {
 }
 
 #hero input[type="email"] {
-  border: 1px solid burlywood;
+  border: 1px solid #ddd;
   border-radius: 5px;
   max-width: 350px;
   margin-top: 20px;
@@ -66,11 +66,12 @@ a {
   height: 30px;
 }
 #hero input[type="submit"] {
-  border: 1px solid greenyellow;
+  border: 1px solid #ddd;
+  background-color: #fff;
   border-radius: 5px;
   width: 45%;
   height: 30px;
-  margin-top: 10px;
+  margin-top: 20px;
   font-weight: 400;
 }
 .container {
@@ -90,14 +91,73 @@ a {
   justify-content: center;
   align-items: center;
   color: firebrick;
-  width: 20%;
+  width: 15%;
   height: 125px;
-  margin-right: 30px;
+  margin-right: 10px;
 }
 .desc {
   display: flex;
   flex-direction: column;
+  text-align: justify;
   justify-content: center;
-  width: 80%;
+  width: 85%;
   height: 125px;
+}
+#how-it-works {
+  margin: 0 auto;
+  margin-top: 25px;
+  width: 100%;
+  max-width: 600px;
+}
+
+#pricing {
+  margin-top: 25px;
+  display: flex;
+}
+.price_box {
+  border: 1px solid #eee;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+  width: 100%;
+  margin: 10px;
+  -webkit-box-shadow: 0px 2px 50px -25px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 2px 50px -25px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 2px 50px -25px rgba(0, 0, 0, 0.75);
+}
+.price_box__head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ddd;
+  width: 100%;
+  height: 40px;
+  font-weight: 600;
+}
+.price_box__body {
+  width: 100%;
+  background-color: #eee;
+}
+.price_box__body h3 {
+  margin-top: 20px;
+}
+.price_box__body ol {
+  margin: 20px 0;
+}
+.price_box__body ol li {
+  padding: 5px 0;
+}
+.btn {
+  min-width: 150px;
+  cursor: pointer;
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 60%;
+  color: #fff;
+  background-color: #f5d547;
+  margin-bottom: 20px;
 }
