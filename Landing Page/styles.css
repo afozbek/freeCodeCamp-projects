@@ -161,3 +161,26 @@ a {
   background-color: #f5d547;
   margin-bottom: 20px;
 }
+
+.footer {
+  border: 1px solid #ddd;
+  background-color: #ccc;
+  margin: 40px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+.footer h4 {
+  margin-left: 25px;
+  width: 30%;
+}
+.footer__nav {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  margin-right: 25px;
+}
+.footer__nav li {
+  margin-left: 10px;
+}
