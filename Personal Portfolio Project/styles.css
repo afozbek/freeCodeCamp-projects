@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  --primary-color: #69f0ae;
+  --primary-light: #9fffe0;
+  --primary-dark: #2bbd7e;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Quicksand", sans-serif;
+  background-color: var(--primary-color);
+  /* font-family: 'Dosis', sans-serif; */
+}
+#navbar {
+  display: flex;
+  position: fixed;
+  background-color: var(--primary-color);
+  width: 100%;
+
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+#navbar li {
+  list-style: none;
+  padding: 20px;
+}
+.nav-item {
+  display: inline-block;
+}
+.nav-item a {
+  text-decoration: none;
+  color: black;
+}
+.me {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.my_projects {
+  background-color: white;
+  color: var(--primary-dark);
+  display: flex;
+  flex-direction: column;
+}
