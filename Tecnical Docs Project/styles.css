@@ -1,0 +1,120 @@
+* {
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: start;
+  box-sizing: border-box;
+}
+body {
+  background-color: #e1dbdb3b;
+  color: #4d4e53;
+  line-height: 1.5;
+}
+
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+
+#navbar {
+  position: fixed;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  min-width: 280px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border: 1px solid;
+  border-color: rgba(0, 22, 22, 0.4);
+  height: 100%;
+}
+.nav-header {
+  color: black;
+  text-align: center;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+.nav-items {
+  height: 85%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.nav-items li {
+  width: 100%;
+  padding: 8px;
+  padding-left: 45px;
+  border-top: 1px solid;
+  border-color: rgba(0, 22, 22, 0.4);
+  text-align: start;
+}
+.nav-link {
+  color: #4d4e53;
+  cursor: pointer;
+}
+#main-doc {
+  position: absolute;
+  width: -webkit-fill-available;
+  margin-left: 310px;
+  margin-bottom: 100px;
+  padding: 20px;
+}
+.main-section {
+  font-family: "Open Sans", Arial, sans-serif;
+}
+.main-section header {
+  text-align: left;
+  margin: 0px;
+  font-size: 24px;
+  font-weight: 500;
+}
+.main-section article {
+  color: #4d4e53;
+  margin: 10px;
+}
+.main-section p {
+  text-align: start;
+  margin: 14px 0;
+  font-weight: 400;
+}
+.main-section li {
+  list-style-type: initial;
+  text-align: start;
+  margin: 15px 0px 0px 30px;
+}
+.main-section code {
+  background-color: #eeeeee;
+  padding: 15px;
+  margin: 10px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  line-height: 2;
+  border-radius: 5px;
+}
+.main-section span {
+  font-family: monospace;
+  /*margin-top: 7px;*/
+  color: #5a5a5e;
+  font-size: 13px;
+  font-weight: 300;
+  display: block;
+  text-align: start;
+}
+span.comment {
+  color: #d07a7a;
+}
+.data-types {
+  padding: 0 20px;
+}
+.data-types li {
+  list-style-type: square;
+}
