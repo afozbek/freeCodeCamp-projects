@@ -85,10 +85,43 @@ body {
   height: 40px;
   padding: 5px;
   margin: 0 auto;
+  margin-top: 35px;
 }
-.btn:hover {
+/* .btn:hover {
   color: var(--primary-dark);
   transition: 0.7s;
   background-color: white;
   border: 2px solid var(--primary-dark);
+} */
+#contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 500px;
+}
+.header {
+  padding-top: 37px;
+}
+.btn-contact {
+  margin-bottom: 50px;
+  border: none;
+  color: var(--primary-dark);
+  background-color: white;
+}
+footer {
+  display: flex;
+  flex-direction: column;
+  background-color: #22313f;
+  color: white;
+  line-height: 2;
+  padding: 30px 0;
+}
+.social {
+  color: black;
+}
+.social a {
+  display: inline-block;
+  color: white;
+  font-size: 20px;
+  margin: 10px 20px;
 }
