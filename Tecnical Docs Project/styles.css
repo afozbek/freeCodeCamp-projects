@@ -7,6 +7,9 @@
   text-align: start;
   box-sizing: border-box;
 }
+html {
+  scroll-behavior: smooth;
+}
 body {
   background-color: #e1dbdb3b;
   color: #4d4e53;
