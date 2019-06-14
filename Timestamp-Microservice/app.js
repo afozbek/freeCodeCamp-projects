@@ -24,17 +24,30 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/timestamp/:date_string?", (req, res, next) => {
-  // TODO
-  console.log(req.params.date_string);
-  let dateString = req.params.data_string;
-  let newTime = new Date();
+  let dateString = req.params.date_string;
+
   if (!dateString) {
+    let newDate = new Date();
     res.json({
-      unix: newTime.getTime(),
-      utc: newTime.toUTCString()
+      unix: newDate.getTime(),
+      utc: newDate.toUTCString()
     });
+  } else {
+    let newDate = new Date(dateString);
+    if (newDate.toString() === "Invalid Date") {
+      console.log("Invalid Date");
+      res.json({
+        unix: null,
+        utc: "Invalid Date"
+      });
+    } else {
+      console.log("Date is Valid");
+      res.json({
+        unix: newDate.getTime(),
+        utc: newDate.toUTCString()
+      });
+    }
   }
-  res.json({ unix: new Date(), utc: new Date().toUTCString() });
 });
 
 // your first API endpoint...
