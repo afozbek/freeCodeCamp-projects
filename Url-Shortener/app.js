@@ -47,11 +47,12 @@ app.post("/api/shorturl/new", (req, res) => {
         url: url
       },
       (err, data) => {
+        console.log("Host", req.headers.host);
         if (!err) {
           res.json({
             original_url: url,
             short_url: data._id,
-            origin: `http://localhost:3000/api/shorturl/${data._id}`
+            origin: `http://${req.headers.host}/api/shorturl/${data._id}`
           });
         } else {
           res.json({
