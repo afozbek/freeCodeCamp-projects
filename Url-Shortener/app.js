@@ -47,7 +47,6 @@ app.post("/api/shorturl/new", (req, res) => {
         url: url
       },
       (err, data) => {
-        console.log("Host", req.headers.host);
         if (!err) {
           res.json({
             original_url: url,
@@ -76,7 +75,6 @@ app.get("/api/shorturl/:urlId", (req, res) => {
         message: "Can't find it"
       });
     } else {
-      console.log(data.url);
       res.redirect(data.url);
     }
   });
