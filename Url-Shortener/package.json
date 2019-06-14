@@ -1,0 +1,37 @@
+{
+  "name": "shorturl",
+  "version": "0.0.1",
+  "author": {
+    "name": "Abdullah Furkan Özbek"
+  },
+  "description": "API project for freeCodeCamp",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "is-url": "^1.2.4",
+    "mongodb": "^3.2.7",
+    "mongoose": "^5.5.15"
+  },
+  "engines": {
+    "node": "4.4.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://hyperdev.com/#!/project/welcome-project"
+  },
+  "keywords": [
+    "node",
+    "hyperdev",
+    "express"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
