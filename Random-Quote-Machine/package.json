@@ -1,0 +1,38 @@
+{
+  "name": "my_quote_machine",
+  "keywords": [
+    "Basic random quote machine"
+  ],
+  "description": "Building random quote machine",
+  "version": "0.1.0",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-reveal": "^1.2.2",
+    "react-scripts": "3.0.1",
+    "react-transition-group": "^4.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

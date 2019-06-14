@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: rgb(243, 156, 18);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+#footer {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: white;
+  text-align: center;
+}
+
+#footer a {
+  color: white;
+}
