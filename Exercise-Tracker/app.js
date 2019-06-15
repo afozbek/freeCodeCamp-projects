@@ -26,7 +26,15 @@ const userSchema = new Schema({
   }
 });
 
+const exerciseSchema = new Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
+  description: { type: String, required: true },
+  duration: { type: Number, required: true },
+  date: String
+});
+
 const User = mongoose.model("Users", userSchema);
+const Exercise = mongoose.model("Exercises", exerciseSchema);
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
@@ -35,7 +43,7 @@ app.get("/", (req, res) => {
 app.post("/api/exercise/new-user", async (req, res) => {
   let username = req.body.username;
   try {
-    let user = User.findOne({ username });
+    let user = await User.findOne({ username });
     if (!user) {
       const newUser = new User({
         username,
@@ -54,12 +62,87 @@ app.post("/api/exercise/new-user", async (req, res) => {
     }
   } catch (err) {
     res.json({
-      message: "Something was wrong "
+      message: "Something was wrong ",
+      err: err.message
     });
   }
-  res.json({
-    message: "Post Works"
-  });
+});
+
+app.post("/api/exercise/add", async (req, res) => {
+  let userId = req.body.userId;
+  try {
+    let user = await User.findById(userId);
+    if (!user) {
+      res.json({
+        message: "User is not exists"
+      });
+    } else {
+      let { description, duration, date } = req.body;
+      if (description === "" || duration === "") {
+        res.json({
+          message: "You must fill all required fields"
+        });
+      } else {
+        let newDate = new Date(date);
+        let newDate_ = isNaN(newDate.getMinutes()) ? new Date() : newDate;
+
+        let exercise = {
+          userId: user._id.toString(),
+          description,
+          duration,
+          date: newDate_.toUTCString()
+        };
+
+        let newExercise = new Exercise(exercise);
+        let result = await newExercise.save();
+        console.log(result._doc);
+        res.json({ ...result._doc, message: "We found it 😊" });
+      }
+    }
+  } catch (err) {
+    res.json({
+      message: "Something was wrong",
+      err: err.message
+    });
+  }
+});
+
+app.get("/api/exercise/log", async (req, res) => {
+  let { userId, from, to, limit } = req.query;
+  if (!userId) {
+    res.json({
+      message: "You must give us userId 😢"
+    });
+  } else {
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+        res.json({
+          message: "We don't find the user 😢"
+        });
+      } else {
+        let exercises = await Exercise.find({ userId });
+        console.log(exercises);
+        if (exercises) {
+          res.json({
+            _id: userId,
+            message: "We found the exercises",
+            count: exercises.length,
+            log: [...exercises]
+          });
+        } else {
+          res.json({
+            message: "We can't find it"
+          });
+        }
+      }
+    } catch (err) {
+      res.json({
+        message: "Something was wrong ",
+        err: err.message
+      });
+    }
+  }
 });
 
 // Not found middleware
