@@ -14,8 +14,52 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
+
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema({
+  name: String,
+  age: Number,
+  username: {
+    type: String,
+    required: true
+  }
+});
+
+const User = mongoose.model("Users", userSchema);
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
+});
+
+app.post("/api/exercise/new-user", async (req, res) => {
+  let username = req.body.username;
+  try {
+    let user = User.findOne({ username });
+    if (!user) {
+      const newUser = new User({
+        username,
+        name: "Abdullah Furkan Özbek",
+        age: 24
+      });
+      const result = await newUser.save();
+      res.json({
+        username: result.username,
+        _id: result._id
+      });
+    } else {
+      res.json({
+        message: "User already exist"
+      });
+    }
+  } catch (err) {
+    res.json({
+      message: "Something was wrong "
+    });
+  }
+  res.json({
+    message: "Post Works"
+  });
 });
 
 // Not found middleware
