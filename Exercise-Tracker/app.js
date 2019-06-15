@@ -108,7 +108,7 @@ app.post("/api/exercise/add", async (req, res) => {
 });
 
 app.get("/api/exercise/log", async (req, res) => {
-  let { userId, from, to, limit } = req.query;
+  let { userId, limit } = req.query;
   if (!userId) {
     res.json({
       message: "You must give us userId 😢"
@@ -121,7 +121,9 @@ app.get("/api/exercise/log", async (req, res) => {
           message: "We don't find the user 😢"
         });
       } else {
-        let exercises = await Exercise.find({ userId });
+        let exercises = await Exercise.find({ userId }).limit(
+          limit ? +limit : 2
+        );
         console.log(exercises);
         if (exercises) {
           res.json({
