@@ -4,6 +4,8 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var expect = require("chai").expect;
 var cors = require("cors");
+const helmet = require("helmet");
+const mongoose = require("mongoose");
 
 var apiRoutes = require("./routes/api.js");
 var fccTestingRoutes = require("./routes/fcctesting.js");
@@ -16,6 +18,8 @@ app.use("/public", express.static(process.cwd() + "/public"));
 app.use(cors({ origin: "*" })); //For FCC testing purposes only
 
 require("dotenv").config();
+
+app.use(helmet.xssFilter({ reportUri: "/report-xss-violation" }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -44,21 +48,30 @@ app.use(function(req, res, next) {
     .send("Not Found");
 });
 
+const port = process.env.PORT || 4000;
 //Start our server and tests!
-app.listen(process.env.PORT || 3000, function() {
-  console.log("Listening on port " + process.env.PORT);
-  if (process.env.NODE_ENV === "test") {
-    console.log("Running Tests...");
-    setTimeout(function() {
-      try {
-        runner.run();
-      } catch (e) {
-        var error = e;
-        console.log("Tests are not valid:");
-        console.log(error);
+const CONNECTION_STRING = process.env.MONGO_URI; //MongoClient.connect(CONNECTION_STRING, function(err, db) {});
+
+mongoose
+  .connect(CONNECTION_STRING, { useNewUrlParser: true })
+  .then(res => {
+    console.log("Database connection successfull");
+    app.listen(port, function() {
+      console.log("Listening on port " + port);
+      if (process.env.NODE_ENV === "test") {
+        console.log("Running Tests...");
+        setTimeout(function() {
+          try {
+            runner.run();
+          } catch (e) {
+            var error = e;
+            console.log("Tests are not valid:");
+            console.log(error);
+          }
+        }, 3500);
       }
-    }, 3500);
-  }
-});
+    });
+  })
+  .catch(err => console.log(err));
 
 module.exports = app; //for testing
