@@ -4,7 +4,7 @@
   "description": "What am I about?",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -21,7 +21,7 @@
     "zombie": "^6.1.4"
   },
   "engines": {
-    "node": "4.4.3"
+    "node": "10.16.0"
   },
   "repository": {
     "type": "git",
