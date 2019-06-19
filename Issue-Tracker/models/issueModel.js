@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const issueSchema = new Schema({
   project_name: {
     type: String,
-    ref: "Project"
+    ref: "Project",
+    required: true
   },
   issue_title: {
     type: String,
@@ -23,9 +24,10 @@ const issueSchema = new Schema({
     type: Boolean,
     required: true
   },
-  assigned_to: String,
+  assigned_to: { type: String, required: true },
   status_text: String,
-  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+  created_on: { type: Date, default: Date.now },
+  updated_on: { type: Date, default: Date.now }
 });
 
 const Issue = mongoose.model("Issue", issueSchema);
