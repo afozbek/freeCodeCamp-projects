@@ -20,6 +20,7 @@ During the continuing curriculum, I made some projects and that projects will be
 - [Tribute Page](https://github.com/afozbek/freeCodeCamp-projects/tree/master/Tribute-Page)
 - [Url Shortener](https://github.com/afozbek/freeCodeCamp-projects/tree/master/Url-Shortener)
 - [Issue Tracker](https://github.com/afozbek/freeCodeCamp-projects/tree/master/Issue-Tracker)
+- [Personal Library](https://github.com/afozbek/freeCodeCamp-projects/tree/master/Personal-Library)
 
 ## Built With
 
