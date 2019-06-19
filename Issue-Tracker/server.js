@@ -19,7 +19,19 @@ app.use(cors({ origin: "*" })); //For FCC testing purposes only
 
 require("dotenv").config();
 
-app.use(helmet.xssFilter({ reportUri: "/report-xss-violation" }));
+app.use(
+  helmet({
+    xssFilter: {
+      reportUri: "/report-xss-violation"
+    },
+    frameguard: {
+      action: "deny"
+    },
+    hidePoweredBy: {
+      setTo: "PHP 4.2.0"
+    }
+  })
+);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
