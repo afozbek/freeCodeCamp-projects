@@ -11,7 +11,8 @@ const projectSchema = new Schema({
   project_desc: String,
   contributors: [String],
   created_by: String,
-  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+  created_on: { type: Date, default: Date.now },
+  updated_on: { type: Date, default: Date.now }
 });
 
 const Project = mongoose.model("Project", projectSchema);
