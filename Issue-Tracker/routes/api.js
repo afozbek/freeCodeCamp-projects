@@ -37,16 +37,18 @@ module.exports = function(app) {
       var project_name = req.params.project;
 
       let { open, assigned_to } = req.query;
-
-      let findParam = (err, res) => {};
+      console.log(req.query);
+      let findParam;
 
       if (open && assigned_to) {
         findParam = { open, assigned_to };
       } else if (open) {
-        // let bool = open === "true" ? true : false;
-        findParam = { open };
-      } else {
+        let bool = open === "true" ? true : false;
+        findParam = { open: bool };
+      } else if (assigned_to) {
         findParam = { assigned_to };
+      } else {
+        findParam = (err, res) => {};
       }
       try {
         let project = Project.findOne({ project_name });
@@ -56,10 +58,7 @@ module.exports = function(app) {
         }
         let issues = await Issue.find(findParam);
 
-        res.json({
-          message: "Success",
-          issues
-        });
+        res.json(issues);
       } catch (err) {
         next(err);
       }
@@ -68,6 +67,7 @@ module.exports = function(app) {
     .post(async (req, res, next) => {
       let project_name = req.params.project;
       console.log(project_name);
+      console.log(req.body);
       try {
         const project = await Project.findOne({ project_name });
         if (!project) {
@@ -144,8 +144,7 @@ module.exports = function(app) {
       }
     })
 
-    .delete(async (req, res) => {
-      // TODO
+    .delete(async (req, res, next) => {
       try {
         let project_name = await Project.findOne({
           project_name: req.params.project
