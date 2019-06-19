@@ -15,7 +15,7 @@ var app = express();
 
 app.use("/public", express.static(process.cwd() + "/public"));
 
-app.use(cors({ origin: "*" })); //For FCC testing purposes only
+app.use(cors()); //For FCC testing purposes only
 
 require("dotenv").config();
 
@@ -58,6 +58,14 @@ app.use(function(req, res, next) {
     .status(404)
     .type("text")
     .send("Not Found");
+});
+
+app.use(function(err, req, res, next) {
+  console.log("I am getting here");
+  res.status(500).json({
+    message: err.message,
+    status: false
+  });
 });
 
 const port = process.env.PORT || 4000;
