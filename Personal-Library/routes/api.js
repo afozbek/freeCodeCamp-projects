@@ -1,14 +1,9 @@
-var expect = require("chai").expect;
-
 const Book = require("../models/bookModel");
-//Example connection: MongoClient.connect(MONGODB_CONNECTION_STRING, function(err, db) {});
 
 module.exports = function(app) {
   app
     .route("/api/books")
     .get(async (req, res, next) => {
-      //response will be array of book objects
-      //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
       try {
         const allBooks = await Book.find().select("-__v");
         if (!allBooks) {
@@ -37,11 +32,9 @@ module.exports = function(app) {
         err = new Error("Post failed");
         return next(err);
       }
-      //response will contain new book object including atleast _id and title
     })
 
     .delete(async (req, res, next) => {
-      //if successful response will be 'complete delete successful'
       try {
         const result = await Book.deleteMany({});
         res.json({
@@ -58,7 +51,6 @@ module.exports = function(app) {
     .route("/api/books/:id")
     .get(async (req, res, next) => {
       const bookid = req.params.id;
-      //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
       try {
         const book = await Book.findById(bookid).select(
           "-num_of_comments -__v"
@@ -77,7 +69,6 @@ module.exports = function(app) {
     .post(async (req, res, next) => {
       var bookid = req.params.id;
       var comment = req.body.comment;
-      //json res format same as .get
       try {
         const updatedBook = await Book.findOneAndUpdate(
           { _id: bookid },
@@ -102,7 +93,6 @@ module.exports = function(app) {
 
     .delete(async (req, res, next) => {
       var bookid = req.params.id;
-      //if successful response will be 'delete successful'
       try {
         await Book.deleteOne({ _id: bookid });
         res.json({
