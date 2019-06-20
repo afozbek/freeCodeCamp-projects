@@ -8,7 +8,8 @@ var apiRoutes = require("./routes/api.js");
 var fccTestingRoutes = require("./routes/fcctesting.js");
 var runner = require("./test-runner");
 
-const { connect } = require("mongoose");
+const mongoose = require("mongoose");
+
 const helmet = require("helmet");
 
 require("dotenv").config();
@@ -29,6 +30,10 @@ app.use(
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
 
 //Index page (static HTML)
 app.route("/").get(function(req, res) {
@@ -58,10 +63,11 @@ app.use((err, req, res, next) => {
 });
 const MONGODB_CONNECTION_STRING = process.env.DB;
 
-connect(
-  MONGODB_CONNECTION_STRING,
-  { useNewUrlParser: true, useCreateIndex: true }
-)
+mongoose
+  .connect(MONGODB_CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  })
   .then(res => {
     console.log("Db connection successfull.");
 
