@@ -9,10 +9,9 @@ var fccTestingRoutes = require("./routes/fcctesting.js");
 var runner = require("./test-runner");
 
 const mongoose = require("mongoose");
-
 const helmet = require("helmet");
-
 require("dotenv").config();
+
 var app = express();
 
 app.use("/public", express.static(process.cwd() + "/public"));
@@ -54,7 +53,7 @@ app.use(function(req, res, next) {
     .send("Not Found");
 });
 
-// Error Middelware
+// Error Middleware
 app.use((err, req, res, next) => {
   return res.status(500).json({
     message: err.message,
