@@ -8,6 +8,7 @@ var apiRoutes = require("./routes/api.js");
 var fccTestingRoutes = require("./routes/fcctesting.js");
 var runner = require("./test-runner");
 
+const { connect } = require("mongoose");
 const helmet = require("helmet");
 
 require("dotenv").config();
@@ -16,6 +17,15 @@ var app = express();
 app.use("/public", express.static(process.cwd() + "/public"));
 
 app.use(cors({ origin: "*" })); //USED FOR FCC TESTING PURPOSES ONLY!
+
+app.use(
+  helmet({
+    hidePoweredBy: {
+      setTo: { setTo: "PHP 4.2.0" }
+    },
+    noCache: true
+  })
+);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,21 +49,38 @@ app.use(function(req, res, next) {
     .send("Not Found");
 });
 
-//Start our server and tests!
-app.listen(process.env.PORT || 3000, function() {
-  console.log("Listening on port " + process.env.PORT);
-  if (process.env.NODE_ENV === "test") {
-    console.log("Running Tests...");
-    setTimeout(function() {
-      try {
-        runner.run();
-      } catch (e) {
-        var error = e;
-        console.log("Tests are not valid:");
-        console.log(error);
-      }
-    }, 1500);
-  }
+// Error Middelware
+app.use((err, req, res, next) => {
+  return res.json({
+    message: err.message,
+    location: "Error Middleware"
+  });
 });
+const MONGODB_CONNECTION_STRING = process.env.DB;
+
+connect(MONGODB_CONNECTION_STRING)
+  .then(res => {
+    console.log("Db connection successfull.");
+
+    //Start our server and tests!
+    app.listen(process.env.PORT || 4000, function() {
+      console.log("Listening on port " + process.env.PORT);
+      if (process.env.NODE_ENV === "test") {
+        console.log("Running Tests...");
+        setTimeout(function() {
+          try {
+            runner.run();
+          } catch (e) {
+            var error = e;
+            console.log("Tests are not valid:");
+            console.log(error);
+          }
+        }, 1500);
+      }
+    });
+  })
+  .catch(err => {
+    console.log("Something bad happend when connecting db");
+  });
 
 module.exports = app; //for unit/functional testing
