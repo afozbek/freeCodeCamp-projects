@@ -14,8 +14,7 @@ module.exports = function(app) {
         if (!allBooks) {
           return res.send("No books exist");
         }
-
-        return res.json(resBooks);
+        return res.json(allBooks);
       } catch (err) {
         err = new Error("Cannot get books");
         return next(err);
