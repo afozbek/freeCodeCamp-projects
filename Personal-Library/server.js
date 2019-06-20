@@ -51,14 +51,17 @@ app.use(function(req, res, next) {
 
 // Error Middelware
 app.use((err, req, res, next) => {
-  return res.json({
+  return res.status(500).json({
     message: err.message,
     location: "Error Middleware"
   });
 });
 const MONGODB_CONNECTION_STRING = process.env.DB;
 
-connect(MONGODB_CONNECTION_STRING)
+connect(
+  MONGODB_CONNECTION_STRING,
+  { useNewUrlParser: true, useCreateIndex: true }
+)
   .then(res => {
     console.log("Db connection successfull.");
 
