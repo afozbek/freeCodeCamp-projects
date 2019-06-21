@@ -8,17 +8,27 @@ module.exports = function(app) {
 
   app.route("/api/convert").get(function(req, res) {
     var input = req.query.input;
-    var initNum = convertHandler.getNum(input);
-    var initUnit = convertHandler.getUnit(input);
-    var returnNum = convertHandler.convert(initNum, initUnit);
+    var [initNum, initUnit] = convertHandler.getNumAndUnit(input);
+    var returnNum = convertHandler.convert(initNum, initUnit).toString();
     var returnUnit = convertHandler.getReturnUnit(initUnit);
+    if (!returnNum || !returnUnit) {
+      return res.json({
+        message: "Error when converting"
+      });
+    }
+
     var toString = convertHandler.getString(
       initNum,
       initUnit,
       returnNum,
       returnUnit
     );
-
-    //res.json
+    res.json({
+      initNum,
+      initUnit,
+      returnNum,
+      returnUnit,
+      string: toString
+    });
   });
 };
