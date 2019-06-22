@@ -9,10 +9,11 @@ module.exports = function(app) {
   app.route("/api/convert").get(function(req, res) {
     var input = req.query.input;
     var [initNum, initUnit] = convertHandler.getNumAndUnit(input);
-    var returnNum = convertHandler.convert(initNum, initUnit).toString();
+    var returnNum = convertHandler.convert(initNum, initUnit);
     var returnUnit = convertHandler.getReturnUnit(initUnit);
+
     if (!returnNum || !returnUnit) {
-      return res.json({
+      return res.status(500).json({
         message: "Error when converting"
       });
     }
@@ -23,10 +24,10 @@ module.exports = function(app) {
       returnNum,
       returnUnit
     );
-    res.json({
+    return res.json({
       initNum,
       initUnit,
-      returnNum,
+      returnNum: returnNum.toString(),
       returnUnit,
       string: toString
     });
