@@ -11,14 +11,16 @@ function ConvertHandler() {
         initNum += char;
       }
     }
+
     return [initNum, initUnit];
   };
 
   this.getReturnUnit = function(initUnit) {
-    switch (initUnit) {
+    let lowerInitUnit = initUnit.toLowerCase();
+    switch (lowerInitUnit) {
       case "gal":
         return "L";
-      case "L":
+      case "l":
         return "gal";
       case "lbs":
         return "kg";
@@ -38,19 +40,21 @@ function ConvertHandler() {
     const lbsToKg = 0.453592; // 1 lbs
     const miToKm = 1.60934; // 1 mi
 
-    switch (initUnit) {
+    let lowerInitUnit = initUnit.toLowerCase();
+    let initNum_ = eval(initNum);
+    switch (lowerInitUnit) {
       case "gal":
-        return +initNum * galToL;
-      case "L":
-        return +initNum / galToL;
+        return initNum_ * galToL;
+      case "l":
+        return initNum_ / galToL;
       case "lbs":
-        return +initNum * lbsToKg;
+        return initNum_ * lbsToKg;
       case "kg":
-        return +initNum / lbsToKg;
+        return initNum_ / lbsToKg;
       case "mi":
-        return +initNum * miToKm;
+        return initNum_ * miToKm;
       case "km":
-        return +initNum / miToKm;
+        return initNum_ / miToKm;
       default:
         return null;
     }
