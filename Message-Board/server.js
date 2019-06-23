@@ -25,7 +25,7 @@ app.use(
       }
     },
     referrerPolicy: {
-      policy: "same origin"
+      policy: "same-origin"
     },
     dnsPrefetchControl: {
       allow: true
