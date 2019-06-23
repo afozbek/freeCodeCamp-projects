@@ -52,7 +52,7 @@ app.use(function(req, res, next) {
     .send("Not Found");
 });
 
-//404 Not Found Middleware
+//500 Error Middleware
 app.use((err, req, res, next) => {
   res.status(500).json({
     error: err.message,
