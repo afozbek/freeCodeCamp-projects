@@ -16,7 +16,24 @@ var app = express();
 app.use("/public", express.static(process.cwd() + "/public"));
 
 //Security Headers
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "maxcdn.bootstrapcdn.com"]
+      }
+    },
+    referrerPolicy: {
+      policy: "same origin"
+    },
+    dnsPrefetchControl: {
+      allow: true
+    }
+  })
+);
+
+require("dotenv").config();
 
 app.use(cors({ origin: "*" })); //For FCC testing purposes only
 
