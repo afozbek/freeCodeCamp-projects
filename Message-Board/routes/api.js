@@ -144,7 +144,27 @@ module.exports = function(app) {
         return next(new Error("Error when posting reply"));
       }
     }) // Okey
-    .put(async (req, res, next) => {})
+    .put(async (req, res, next) => {
+      const { thread_id, reply_id } = req.body;
+      try {
+        const updatedReply = await Reply.findByIdAndUpdate(
+          reply_id,
+          {
+            reported: true
+          },
+          { new: true }
+        );
+        if (!updatedReply.reported) {
+          return next(new Error("Cant update 'reported status' to `true`"));
+        }
+
+        // TODO: Update Thread replies
+
+        res.json({ message: "working" });
+      } catch (err) {
+        return next(new Error("Error during updating reply"));
+      }
+    })
     .delete(async (req, res, next) => {
       try {
         const result = await Reply.findOne({
