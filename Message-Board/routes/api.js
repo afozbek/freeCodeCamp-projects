@@ -6,6 +6,8 @@ const bcrypt = require("bcrypt");
 const Thread = require("../models/threadModel");
 const Reply = require("../models/replyModel");
 
+const mongoose = require("mongoose");
+
 const SALT_ROUNDS = 10;
 
 module.exports = function(app) {
@@ -157,14 +159,23 @@ module.exports = function(app) {
         if (!updatedReply.reported) {
           return next(new Error("Cant update 'reported status' to `true`"));
         }
-
         // TODO: Update Thread replies
 
-        res.json({ message: "working" });
+        const updatedThread = await Thread.findOneAndUpdate(
+          {
+            _id: mongoose.Types.ObjectId(thread_id),
+            "replies._id": mongoose.Types.ObjectId(reply_id)
+          },
+          { $set: { "replies.$.reported": true } },
+          { new: true }
+        );
+        console.log("TCL: updatedThread", updatedThread);
+
+        res.send("success");
       } catch (err) {
         return next(new Error("Error during updating reply"));
       }
-    })
+    }) // Okey
     .delete(async (req, res, next) => {
       try {
         const result = await Reply.findOne({
