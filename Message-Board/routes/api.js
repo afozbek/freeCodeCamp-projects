@@ -91,17 +91,59 @@ module.exports = function(app) {
       }
       try {
         const threads = await Thread.find({
-          board_name: req.param.board
+          _id: thread_id,
+          board_name: req.params.board
         }).select("-delete_password -__v -reported");
+        console.log(threads);
         if (!threads) {
           return next(new Error("No threads exist"));
         }
         return res.json({ message: "Yep we got the threads", threads });
       } catch (err) {
-        return next(new Error("Error when getting boar"));
+        return next(new Error("Error when getting thread"));
       }
-    })
-    .post(async (req, res, next) => {})
+    }) // Okey
+    .post(async (req, res, next) => {
+      const { text, delete_password, thread_id } = req.body;
+      try {
+        const hashedPassword = await bcrypt.hash(delete_password, SALT_ROUNDS);
+
+        if (!hashedPassword) {
+          return next(new Error("Cannot hash password"));
+        }
+
+        const newReply = new Reply({
+          text,
+          delete_password: hashedPassword,
+          reported: false,
+          thread_id
+        });
+        const resultReply = await newReply.save();
+
+        if (!resultReply) {
+          return next(new Error("Error when creating reply"));
+        }
+
+        const updateResult = await Thread.findByIdAndUpdate(
+          thread_id,
+          {
+            $push: {
+              replies: {
+                _id: resultReply._id,
+                text,
+                delete_password: resultReply.delete_password,
+                reported: resultReply.reported,
+                created_on: resultReply.createdAt
+              }
+            }
+          },
+          { new: true }
+        );
+        res.redirect(`/b/${req.params.board}`);
+      } catch (err) {
+        return next(new Error("Error when posting reply"));
+      }
+    }) // Okey
     .put(async (req, res, next) => {})
     .delete(async (req, res, next) => {
       try {
