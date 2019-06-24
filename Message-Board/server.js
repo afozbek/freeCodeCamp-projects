@@ -77,6 +77,10 @@ app.use((err, req, res, next) => {
 
 const CONNECTION_STRING = process.env.DB;
 
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
+
 mongoose
   .connect(CONNECTION_STRING, { useNewUrlParser: true, useCreateIndex: true })
   .then(res => {
