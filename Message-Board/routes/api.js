@@ -40,8 +40,7 @@ module.exports = function(app) {
           replies: [],
           reported: false
         });
-        let result = await newThread.save();
-        console.log(result);
+        await newThread.save();
         return res.redirect(`/b/${board_name}`);
       } catch (err) {
         return next(new Error("Something bad happen when posting thread"));
@@ -126,7 +125,7 @@ module.exports = function(app) {
           return next(new Error("Error when creating reply"));
         }
 
-        const updateResult = await Thread.findByIdAndUpdate(
+        await Thread.findByIdAndUpdate(
           thread_id,
           {
             $push: {
@@ -177,20 +176,34 @@ module.exports = function(app) {
       }
     }) // Okey
     .delete(async (req, res, next) => {
-      try {
-        const result = await Reply.findOne({
-          _id: req.body.thread_id,
-          delete_password: req.body.delete_password
-        });
-        result.text = "[Deleted]";
-
-        await result.save();
-        console.log("Deleted result", result);
-
-        //TODO
-        res.redirect(`/b/${req.params.board}`);
-      } catch (err) {
-        return next(new Error("Error when deleting thread"));
+      const { thread_id, reply_id, delete_password } = req.body;
+      if (!thread_id || !reply_id || !delete_password) {
+        return next(new Error("Required fields is not filled"));
       }
-    });
+      try {
+        const reply = await Reply.findOne(mongoose.Types.ObjectId(reply_id));
+        const isEqual = await bcrypt.compare(
+          delete_password,
+          reply.delete_password
+        );
+        if (!isEqual) {
+          return next(new Error("passwords is not equal"));
+        }
+
+        const updatedReply = await Reply.findOneAndUpdate(
+          { _id: mongoose.Types.ObjectId(reply_id) },
+          { text: "[deleted]" }
+        );
+        console.log("TCL: updatedReply", updatedReply);
+
+        await Thread.findOneAndUpdate(
+          { _id: thread_id, "replies._id": mongoose.Types.ObjectId(reply_id) },
+          { $set: { "replies.$.text": "[Deleted]" } },
+          { new: true }
+        );
+        res.send("success");
+      } catch (err) {
+        return next(new Error("Error when setting reply [deleted]"));
+      }
+    }); // Okey
 };
