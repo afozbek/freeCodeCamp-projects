@@ -63,6 +63,11 @@ module.exports = function(app) {
     .delete(async (req, res, next) => {
       try {
         const { thread_id, delete_password } = req.body;
+
+        if (!thread_id || !delete_password) {
+          return next(new Error("You must fill all required fields"));
+        }
+
         const thread = await Thread.findById(thread_id);
         if (!thread) {
           return res.send("No thread to delete");
@@ -71,7 +76,6 @@ module.exports = function(app) {
           delete_password,
           thread.delete_password
         );
-        console.log("TCL: isEqual", isEqual);
         if (isEqual) {
           await Thread.findByIdAndDelete(thread_id);
           return res.send("Delete successfull");
@@ -95,7 +99,6 @@ module.exports = function(app) {
           _id: thread_id,
           board_name: req.params.board
         }).select("-delete_password -__v -reported");
-        console.log(threads);
         if (!threads) {
           return next(new Error("No threads exist"));
         }
@@ -168,7 +171,6 @@ module.exports = function(app) {
           { $set: { "replies.$.reported": true } },
           { new: true }
         );
-        console.log("TCL: updatedThread", updatedThread);
 
         res.send("success");
       } catch (err) {
@@ -194,7 +196,6 @@ module.exports = function(app) {
           { _id: mongoose.Types.ObjectId(reply_id) },
           { text: "[deleted]" }
         );
-        console.log("TCL: updatedReply", updatedReply);
 
         await Thread.findOneAndUpdate(
           { _id: thread_id, "replies._id": mongoose.Types.ObjectId(reply_id) },
