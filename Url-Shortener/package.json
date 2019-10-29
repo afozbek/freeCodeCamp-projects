@@ -16,7 +16,7 @@
     "express": "^4.17.1",
     "is-url": "^1.2.4",
     "mongodb": "^3.2.7",
-    "mongoose": "^5.5.15"
+    "mongoose": "^5.7.5"
   },
   "engines": {
     "node": "4.4.5"
